@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Primary Colors (Style.svg 기준) */
+  --color-primary: #4880ee; /* 메인 블루 */
+  --color-primary-light: #eaf3fe; /* 연한 블루 (배경) */
+  --color-secondary: #e84118; /* 강조 레드 */
+
+  /* Grayscale */
+  --color-gray-50: #f2f4f6; /* 가장 연한 회색 */
+  --color-gray-100: #dadada; /* 연한 회색 */
+  --color-gray-200: #8d94a0; /* 중간 회색 */
+  --color-gray-300: #6d7582; /* 진한 회색 */
+  --color-gray-400: #353c49; /* 매우 진한 회색 */
+  --color-gray-900: #222222; /* 거의 검정 */
+
+  /* Font Family */
+  --font-family-sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+
+  /* Font Sizes (rem 기준) */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  --line-height-loose: 2;
+
+  /* Spacing */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem; /* 4px */
+  --spacing-2: 0.5rem; /* 8px */
+  --spacing-3: 0.75rem; /* 12px */
+  --spacing-4: 1rem; /* 16px */
+  --spacing-5: 1.25rem; /* 20px */
+  --spacing-6: 1.5rem; /* 24px */
+  --spacing-8: 2rem; /* 32px */
+  --spacing-10: 2.5rem; /* 40px */
+  --spacing-12: 3rem; /* 48px */
+  --spacing-16: 4rem; /* 64px */
+
+  /* Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.375rem; /* 6px */
+  --radius-lg: 0.5rem; /* 8px */
+  --radius-xl: 0.75rem; /* 12px */
+  --radius-2xl: 1rem; /* 16px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+/* Typography 유틸리티 클래스 */
+@layer utilities {
+  .text-title1 {
+    font-size: var(--font-size-2xl);
+    line-height: var(--line-height-tight);
+    font-weight: 700;
+  }
+
+  .text-title2 {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-tight);
+    font-weight: 600;
+  }
+
+  .text-title3 {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-normal);
+    font-weight: 600;
+  }
+
+  .text-body1 {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    font-weight: 400;
+  }
+
+  .text-body2 {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    font-weight: 400;
+  }
+
+  .text-caption {
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-tight);
+    font-weight: 400;
+  }
+}
+
+/* Global Styles */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-family-sans);
+    color: var(--color-gray-900);
+    line-height: var(--line-height-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  input,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}

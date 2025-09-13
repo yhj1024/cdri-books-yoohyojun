@@ -1,0 +1,9 @@
+node_modules
+dist-ssr
+*.local
+.git
+.husky
+storybook-static
+coverage
+*.md
+pnpm-lock.yaml
