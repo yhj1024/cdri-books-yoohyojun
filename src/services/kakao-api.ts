@@ -1,4 +1,5 @@
 import type { Book } from '../types/book'
+import { ApiError, ValidationError } from '@/lib/errors/custom-errors'
 
 const KAKAO_API_BASE_URL = import.meta.env.VITE_KAKAO_API_BASE_URL
 const API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY
@@ -64,8 +65,14 @@ export const searchBooks = async ({
   size = 50,
   target = 'title',
 }: SearchBooksParams): Promise<SearchBooksResult> => {
+  // API 키 체크
   if (!API_KEY) {
-    throw new Error('Kakao API key is not configured')
+    throw new ValidationError('Kakao API 키가 설정되지 않았습니다')
+  }
+
+  // 검색어 유효성 검사
+  if (!query?.trim()) {
+    throw new ValidationError('검색어를 입력해주세요')
   }
 
   const params = new URLSearchParams({
@@ -76,15 +83,49 @@ export const searchBooks = async ({
     target,
   })
 
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 10000) // 10초 타임아웃
+
   try {
     const response = await fetch(`${KAKAO_API_BASE_URL}?${params}`, {
       headers: {
         Authorization: `KakaoAK ${API_KEY}`,
       },
+      signal: controller.signal,
     })
 
+    clearTimeout(timeoutId)
+
+    // API 응답 에러 처리
     if (!response.ok) {
-      new Error(`API request failed: ${response.status}`)
+      if (response.status === 400) {
+        throw new ValidationError('잘못된 검색 요청입니다')
+      }
+      if (response.status === 401) {
+        throw new ApiError('API 키가 유효하지 않습니다', 401, '/search/book', 'GET')
+      }
+      if (response.status === 429) {
+        throw new ApiError(
+          '요청 횟수를 초과했습니다. 잠시 후 다시 시도해주세요',
+          429,
+          '/search/book',
+          'GET',
+        )
+      }
+      if (response.status >= 500) {
+        throw new ApiError(
+          '카카오 서버 오류가 발생했습니다',
+          response.status,
+          '/search/book',
+          'GET',
+        )
+      }
+      throw new ApiError(
+        `API 요청 실패: ${response.status}`,
+        response.status,
+        '/search/book',
+        'GET',
+      )
     }
 
     const data: KakaoSearchResponse = await response.json()
@@ -94,8 +135,7 @@ export const searchBooks = async ({
       totalCount: data.meta.total_count,
       isEnd: data.meta.is_end,
     }
-  } catch (error) {
-    console.error('Failed to search books:', error)
-    throw error
+  } finally {
+    clearTimeout(timeoutId)
   }
 }
