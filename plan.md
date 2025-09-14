@@ -5,8 +5,7 @@
 
 ### 핵심 기능
 - 도서 검색 (검색어 입력)
-- 검색 결과 리스트 표시
-- 페이지네이션
+- 검색 결과 리스트 표시 (무한 스크롤)
 - 상세 정보 보기
 - 찜하기 기능
 
@@ -60,173 +59,89 @@ src/
 - 경로 별칭(@) 설정
 - vite-plugin-svgr 설정
 
-### Phase 2: 순수 UI 컴포넌트 개발 (Bottom-up)
+### Phase 2: UI 컴포넌트 개발 (SVG 디자인 파일 기준)
 
-**모든 컴포넌트 폴더는 index.ts barrel export 파일을 포함합니다**
+**모든 컴포넌트는 `.design/elements-detail/` 폴더의 SVG 파일을 기준으로 개발합니다**
+**각 컴포넌트 폴더는 index.ts barrel export 파일을 포함합니다**
 
-#### 2.1 Icons (SVG 아이콘 컴포넌트)
-- **위치**: `/components/icons/`
-- **필요한 아이콘** (디자인 파일 기준):
-  ```
-  /components/icons/
-    ├── search.tsx         # 돋보기 아이콘
-    ├── heart.tsx          # 빈 하트
-    ├── heart-filled.tsx   # 채워진 하트
-    ├── arrow-left.tsx     # 페이지네이션 이전
-    ├── arrow-right.tsx    # 페이지네이션 다음
-    └── index.ts
-  ```
-
-#### 2.2 Button 컴포넌트
+#### 2.1 Button 컴포넌트
+- **디자인 파일**: `.design/elements-detail/Button.svg`
 - **위치**: `/components/button/`
-- **파일**: `button.tsx`, `button.stories.tsx`, `button.test.tsx`
-- **Props**:
-  - children: React.ReactNode
-  - variant: 'primary' | 'outline'
-  - size: 'sm' | 'md' | 'full'
-  - disabled: boolean
-  - onClick: () => void
-  - className: string (optional)
-- **디자인 파일 기준 변형**:
-  - Primary 파란 버튼 (구매하기)
-  - Outline 테두리 버튼 (상세보기)
-  - 검색 버튼
+- **파일**: `button.tsx`, `button.stories.tsx`, `button.test.tsx`, `index.ts`
+- **구현 완료**: 115×48px, 16px 폰트, 디자인 100% 일치
 
-#### 2.3 Input 컴포넌트
-- **위치**: `/components/input/`
-- **파일**: `input.tsx`, `input.stories.tsx`, `input.test.tsx`
-- **Props**:
-  - value: string
-  - onChange: (value: string) => void
-  - placeholder: string
-  - disabled: boolean
-  - onEnter: () => void (optional)
-  - className: string (optional)
-- **스타일**: 디자인 파일 기준 회색 테두리, 둥근 모서리
+#### 2.2 Header 컴포넌트
+- **디자인 파일**: `.design/elements-detail/Header.svg`
+- **위치**: `/components/header/`
+- **파일**: `header.tsx`, `header.stories.tsx`, `header.test.tsx`, `index.ts`
+- **구성**: 로고, 네비게이션 탭
 
-#### 2.4 Search Input 컴포넌트
-- **위치**: `/components/search-input/`
-- **파일**: `search-input.tsx`, `search-input.stories.tsx`, `search-input.test.tsx`
-- **Props**:
-  - value: string
-  - onChange: (value: string) => void
-  - onSearch: () => void
-  - placeholder: string
-- **구성**: Input + 돋보기 아이콘
+#### 2.3 SearchBox 컴포넌트
+- **디자인 파일**: `.design/elements-detail/SearchBox.svg`
+- **위치**: `/components/search-box/`
+- **파일**: `search-box.tsx`, `search-box.stories.tsx`, `search-box.test.tsx`, `index.ts`
+- **구성**: 검색 입력창, 검색 버튼, 상세검색 버튼
 
-#### 2.5 Card 컴포넌트
-- **위치**: `/components/card/`
-- **파일**: `card.tsx`, `card.stories.tsx`, `card.test.tsx`
-- **Props**:
-  - children: React.ReactNode
-  - className: string (optional)
-- **스타일**: 흰색 배경, 그림자, 둥근 모서리
+#### 2.4 SearchCountText 컴포넌트
+- **디자인 파일**: `.design/elements-detail/SearchCountText.svg`
+- **위치**: `/components/search-count-text/`
+- **파일**: `search-count-text.tsx`, `search-count-text.stories.tsx`, `search-count-text.test.tsx`, `index.ts`
+- **구성**: 검색 결과 개수 텍스트
 
-#### 2.6 Book Thumbnail 컴포넌트
-- **위치**: `/components/book-thumbnail/`
-- **파일**: `book-thumbnail.tsx`, `book-thumbnail.stories.tsx`, `book-thumbnail.test.tsx`
-- **Props**:
-  - src: string
-  - alt: string
-  - className: string (optional)
-- **스타일**: 고정 비율, fallback 이미지
+#### 2.5 BookListItem 컴포넌트
+- **디자인 파일**: `.design/elements-detail/BookListItem.svg`
+- **위치**: `/components/book-list-item/`
+- **파일**: `book-list-item.tsx`, `book-list-item.stories.tsx`, `book-list-item.test.tsx`, `index.ts`
+- **구성**: 책 정보 카드 (기본 상태)
 
-#### 2.7 Tab 컴포넌트
-- **위치**: `/components/tab/`
-- **파일**: `tab.tsx`, `tab.stories.tsx`, `tab.test.tsx`
-- **Props**:
-  - tabs: Array<{ id: string; label: string }>
-  - activeTab: string
-  - onTabChange: (id: string) => void
-- **스타일**: 하단 보더 활성화 표시 (디자인 파일 기준)
+#### 2.6 BookListItemDetail 컴포넌트
+- **디자인 파일**: `.design/elements-detail/BookListItemDetail.svg`
+- **위치**: `/components/book-list-item-detail/`
+- **파일**: `book-list-item-detail.tsx`, `book-list-item-detail.stories.tsx`, `book-list-item-detail.test.tsx`, `index.ts`
+- **구성**: 책 정보 카드 (상세 정보 펼친 상태)
 
-#### 2.8 Pagination 컴포넌트
-- **위치**: `/components/pagination/`
-- **파일**: `pagination.tsx`, `pagination.stories.tsx`, `pagination.test.tsx`
-- **Props**:
-  - currentPage: number
-  - totalPages: number
-  - onPageChange: (page: number) => void
-- **구성**: 이전/다음 화살표, 페이지 번호
+#### 2.7 NoData 컴포넌트
+- **디자인 파일**: `.design/elements-detail/N_oData.svg`
+- **위치**: `/components/no-data/`
+- **파일**: `no-data.tsx`, `no-data.stories.tsx`, `no-data.test.tsx`, `index.ts`
+- **구성**: 데이터 없음 표시
 
-#### 2.9 Spinner 컴포넌트
-- **위치**: `/components/spinner/`
-- **파일**: `spinner.tsx`, `spinner.stories.tsx`, `spinner.test.tsx`
-- **Props**:
-  - size: 'sm' | 'md' | 'lg'
-  - className: string (optional)
+#### 2.8 Image 컴포넌트
+- **디자인 파일**: `.design/elements-detail/Images.svg`
+- **위치**: `/components/image/`
+- **파일**: `image.tsx`, `image.stories.tsx`, `image.test.tsx`, `index.ts`
+- **특징**:
+  - Lazy loading 구현
+  - Skeleton UI 표시
+  - 이미지 로드 실패 시 fallback
 
-#### 2.10 Empty State 컴포넌트
-- **위치**: `/components/empty-state/`
-- **파일**: `empty-state.tsx`, `empty-state.stories.tsx`, `empty-state.test.tsx`
-- **Props**:
-  - title: string
-  - description: string
-  - icon: React.ReactNode
-- **사용**: 검색 결과 없음, 찜한 책 없음
+#### 2.9 Icons 컴포넌트
+- **위치**: `/components/icons/`
+- **구현 완료**:
+  - search, heart, heart-filled 아이콘
+  - chevron-up, chevron-down, chevron-detail (상세보기용)
+  - arrow-left, arrow-right
 
-#### 2.11 Dropdown 컴포넌트 (상세 검색용)
-- **위치**: `/components/dropdown/`
-- **파일**: `dropdown.tsx`, `dropdown.stories.tsx`, `dropdown.test.tsx`
-- **Props**:
-  - options: Array<{ value: string; label: string }>
-  - value: string
-  - onChange: (value: string) => void
-  - placeholder: string
+### Phase 3: 기능 통합 및 페이지 구성
 
-#### 2.12 Popover 컴포넌트
-- **위치**: `/components/popover/`
-- **파일**: `popover.tsx`, `popover.stories.tsx`, `popover.test.tsx`
-- **Props**:
-  - isOpen: boolean
-  - onClose: () => void
-  - children: React.ReactNode
-  - trigger: React.ReactNode
-  - placement: 'bottom' | 'top' (default: 'bottom')
-- **특징**: 트리거 요소 아래/위에 팝오버 표시
-
-### Phase 3: 도메인 컴포넌트 개발
-
-#### 3.1 Book Card 컴포넌트
-- **위치**: `/features/book-search/components/book-card/`
-- **구성** (디자인 파일 기준):
-  - 책 썸네일 (왼쪽)
-  - 책 정보 (오른쪽):
-    - 제목
-    - 저자
-    - 출판사
-    - 정가/할인가
-  - 하트 아이콘 (우측 상단)
-  - 구매하기/상세보기 버튼 (하단)
-
-#### 3.2 Book List 컴포넌트
+#### 3.1 Book List Container
 - **위치**: `/features/book-search/components/book-list/`
-- **구성**: BookCard 리스트 (세로 나열)
+- **역할**: BookListItem 컴포넌트들을 관리하는 컨테이너
 - **특징**:
   - TanStack Virtual로 가상 스크롤 구현
   - 무한 스크롤 (Intersection Observer)
   - 대량 데이터 렌더링 최적화
+  - BookListItem/BookListItemDetail 토글 관리
 
-#### 3.3 Search Bar 컴포넌트
-- **위치**: `/features/book-search/components/search-bar/`
-- **구성**:
-  - SearchInput
-  - 검색 버튼
-  - 상세검색 버튼
-
-#### 3.4 Search Filter Popover (상세 검색)
+#### 3.2 Search Filter Popover (상세 검색)
 - **위치**: `/features/book-search/components/search-filter/`
-- **구성** (디자인 파일 기준):
-  - 검색창 아래 팝오버로 표시
+- **구성**:
+  - SearchBox 아래 팝오버로 표시
   - 검색 대상 드롭다운 (전체, 제목, ISBN, 출판사, 인명)
   - 검색어 입력창
   - 정렬 드롭다운 (정확도순, 최신순)
   - 검색/취소 버튼
 - **특징**: 상세검색 버튼 클릭 시 아래로 펼쳐짐
-
-#### 3.5 Favorite Button 컴포넌트
-- **위치**: `/features/favorites/components/favorite-button/`
-- **구성**: Heart/HeartFilled 아이콘 토글
 
 ### Phase 4: API 및 상태 관리
 
