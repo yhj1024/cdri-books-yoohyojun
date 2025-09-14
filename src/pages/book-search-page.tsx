@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { BookSearch } from '@/features/book-search'
 import { BookList } from '@/features/book-list'
-import { useInfiniteBookSearch } from '../hooks/use-infinite-book-search'
+import { useInfiniteBookSearch } from '@/features/book-search'
 import { useFavoriteStore } from '../stores/favorite-store'
 import type { SearchTarget } from '../stores/search-store'
 

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
-import { SearchBox } from '@/components/search-box'
+import { SearchBox } from './search-box'
 import { SearchCountText } from '@/components/search-count-text'
-import { SearchHistory } from '@/components/search-history'
+import { SearchHistory } from './search-history'
 import { useSearchStore, type SearchTarget } from '@/stores/search-store.ts'
 import type { SelectOption } from '@/components/select'
 

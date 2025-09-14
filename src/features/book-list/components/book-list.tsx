@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
-import { BookListItem } from '../../components/book-list-item/book-list-item'
-import { BookListItemDetail } from '@/components/book-list-item-detail'
+import { BookListItem } from './book-list-item'
+import { BookListItemDetail } from '@/features/book-list'
 import { NoData } from '@/components/no-data'
 import type { Book } from '@/types/book.ts'
 

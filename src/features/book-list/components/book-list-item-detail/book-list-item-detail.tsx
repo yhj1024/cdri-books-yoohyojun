@@ -1,6 +1,6 @@
-import { Button } from '../button'
-import { Image } from '../image'
-import { HeartIcon, HeartFilledIcon, ChevronDetailUpIcon } from '../icons'
+import { Button } from '@/components/button'
+import { Image } from '@/components/image'
+import { HeartIcon, HeartFilledIcon, ChevronDetailUpIcon } from '@/components/icons'
 import type { Book } from '@/types/book.ts'
 
 interface BookListItemDetailProps {

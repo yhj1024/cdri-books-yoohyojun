@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { searchBooks } from '../services/kakao-api'
-import type { SearchBooksParams } from '../services/kakao-api'
+import { searchBooks } from '@/services/kakao-api'
+import type { SearchBooksParams } from '@/services/kakao-api'
 
 export const useInfiniteBookSearch = (params: Omit<SearchBooksParams, 'page'>) => {
   return useInfiniteQuery({

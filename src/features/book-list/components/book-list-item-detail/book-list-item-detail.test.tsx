@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
-import { BookListItemDetail } from './book-list-item-detail'
+import { BookListItemDetail } from '@/features/book-list'
 
 // IntersectionObserver mock
 const mockIntersectionObserver = vi.fn()

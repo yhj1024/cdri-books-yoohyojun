@@ -1,4 +1,4 @@
-import { XSmallIcon } from '../icons'
+import { XSmallIcon } from '@/components/icons'
 import type { SearchTarget } from '@/stores/search-store.ts'
 
 interface SearchHistoryItem {

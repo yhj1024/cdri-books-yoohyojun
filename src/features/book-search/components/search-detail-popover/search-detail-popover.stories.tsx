@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { SearchDetailPopover } from './search-detail-popover'
+import { SearchDetailPopover } from '@/features/book-search'
 
 const meta: Meta<typeof SearchDetailPopover> = {
   title: 'Components/SearchDetailPopover',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { BookListItemDetail } from './book-list-item-detail'
+import { BookListItemDetail } from '@/features/book-list'
 
 const meta: Meta<typeof BookListItemDetail> = {
   title: 'Components/BookListItemDetail',

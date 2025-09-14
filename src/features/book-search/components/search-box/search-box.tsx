@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { SearchIcon } from '../icons'
-import { Button } from '../button'
-import { SearchDetailPopover } from '../search-detail-popover'
-import type { SelectOption } from '../select'
+import { SearchIcon } from '@/components/icons'
+import { Button } from '@/components/button'
+import { SearchDetailPopover } from '@/features/book-search'
+import type { SelectOption } from '@/components/select'
 
 interface SearchBoxProps {
   value?: string

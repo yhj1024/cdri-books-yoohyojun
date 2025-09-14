@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { XSmallIcon } from '../icons'
-import { Button } from '../button'
-import { Select } from '../select'
-import type { SelectOption } from '../select'
+import { XSmallIcon } from '@/components/icons'
+import { Button } from '@/components/button'
+import { Select } from '@/components/select'
+import type { SelectOption } from '@/components/select'
 
 interface SearchDetailPopoverProps {
   isOpen: boolean
