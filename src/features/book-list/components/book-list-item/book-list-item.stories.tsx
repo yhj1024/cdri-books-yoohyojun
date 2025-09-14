@@ -24,6 +24,8 @@ const mockBook = {
   salePrice: 32400,
   url: 'https://book.naver.com/bookdb/book_detail.nhn?bid=13161039',
   publishedDate: '2019-05-31',
+  status: '정상판매',
+  contents: '리액트를 다루는 기술에 대한 상세한 설명입니다.',
 }
 
 export const Default: Story = {
@@ -54,8 +56,8 @@ export const WithoutPrice: Story = {
   args: {
     book: {
       ...mockBook,
-      price: undefined,
-      salePrice: undefined,
+      price: 0,
+      salePrice: 0,
     },
     isLiked: false,
   },
