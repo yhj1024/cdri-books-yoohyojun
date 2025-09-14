@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import type { Book } from '../types/book'
 
 interface FavoriteStore {
@@ -61,8 +61,34 @@ export const useFavoriteStore = create<FavoriteStore>()(
       clearFavorites: () => set({ favoriteBooks: [], likedBookIds: new Set() }),
     }),
     {
-      name: 'favorite-books', // localStorage key
-      storage: createJSONStorage(() => localStorage),
+      name: 'favorite-books',
+      storage: {
+        getItem: (name) => {
+          const str = localStorage.getItem(name)
+          if (!str) return null
+
+          const { state } = JSON.parse(str)
+
+          // likedBookIds를 배열에서 Set으로 복원
+          return {
+            state: {
+              ...state,
+              likedBookIds: new Set(state.likedBookIds || []),
+            },
+          }
+        },
+        setItem: (name, value) => {
+          // Set을 배열로 변환하여 저장
+          const toStore = {
+            state: {
+              ...value.state,
+              likedBookIds: Array.from(value.state.likedBookIds || []),
+            },
+          }
+          localStorage.setItem(name, JSON.stringify(toStore))
+        },
+        removeItem: (name) => localStorage.removeItem(name),
+      },
     },
   ),
 )
