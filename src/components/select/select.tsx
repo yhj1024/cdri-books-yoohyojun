@@ -43,10 +43,7 @@ export const Select = ({ options, value, onChange, placeholder = '선택' }: Sel
         className="w-full h-[36px] px-[8px] flex items-center justify-between border-b border-[#D2D6DA] bg-transparent cursor-pointer"
       >
         <span className="text-[14px] font-bold text-[#353C49]">{value?.label || placeholder}</span>
-        <ChevronDownIcon
-          size={20}
-          className={`text-[#B1B8C0] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
-        />
+        <ChevronDownIcon size={20} className={`text-[#B1B8C0] ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (

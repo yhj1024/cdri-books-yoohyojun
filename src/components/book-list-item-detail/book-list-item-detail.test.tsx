@@ -38,9 +38,9 @@ describe('BookListItemDetail 컴포넌트', () => {
     // 구매하기 버튼이 존재하는지
     expect(screen.getByRole('button', { name: /구매하기/ })).toBeInTheDocument()
 
-    // 상세보기 버튼이 존재하는지
+    // 상세 접기 버튼이 존재하는지
     const buttons = screen.getAllByRole('button')
-    expect(buttons.some((btn) => btn.textContent?.includes('상세보기'))).toBe(true)
+    expect(buttons.some((btn) => btn.textContent?.includes('상세 접기'))).toBe(true)
   })
 
   it('찜하기 버튼 클릭 시 콜백이 호출된다', () => {
@@ -53,16 +53,16 @@ describe('BookListItemDetail 컴포넌트', () => {
     expect(handleToggleLike).toHaveBeenCalledWith('1')
   })
 
-  it('상세보기 버튼 클릭 시 콜백이 호출된다', () => {
-    const handleViewDetail = vi.fn()
-    render(<BookListItemDetail book={mockBook} onViewDetail={handleViewDetail} />)
+  it('상세 접기 버튼 클릭 시 콜백이 호출된다', () => {
+    const handleToggleExpand = vi.fn()
+    render(<BookListItemDetail book={mockBook} onToggleExpand={handleToggleExpand} />)
 
     const detailButtons = screen.getAllByRole('button')
-    const detailButton = detailButtons.find((btn) => btn.textContent?.includes('상세보기'))
+    const detailButton = detailButtons.find((btn) => btn.textContent?.includes('상세 접기'))
 
     if (detailButton) {
       fireEvent.click(detailButton)
-      expect(handleViewDetail).toHaveBeenCalledWith(mockBook)
+      expect(handleToggleExpand).toHaveBeenCalledWith('1')
     }
   })
 

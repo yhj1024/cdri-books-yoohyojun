@@ -1,33 +1,19 @@
 import { Button } from '../button'
 import { Image } from '../image'
 import { HeartIcon, HeartFilledIcon, ChevronDetailUpIcon } from '../icons'
-
-interface Book {
-  id: string
-  title: string
-  author: string
-  publisher: string
-  isbn: string
-  thumbnail?: string
-  price?: number
-  salePrice?: number
-  url?: string
-  publishedDate?: string
-  contents?: string
-  status?: string
-}
+import type { Book } from '@/types/book.ts'
 
 interface BookListItemDetailProps {
   book: Book
   onToggleLike?: (bookId: string) => void
-  onViewDetail?: (book: Book) => void
+  onToggleExpand?: (bookId: string) => void
   isLiked?: boolean
 }
 
 export const BookListItemDetail = ({
   book,
   onToggleLike,
-  onViewDetail,
+  onToggleExpand,
   isLiked = false,
 }: BookListItemDetailProps) => {
   const handleLikeClick = () => {
@@ -35,7 +21,7 @@ export const BookListItemDetail = ({
   }
 
   const handleDetailClick = () => {
-    onViewDetail?.(book)
+    onToggleExpand?.(book.id)
   }
 
   const handlePurchaseClick = () => {
@@ -88,10 +74,10 @@ export const BookListItemDetail = ({
         </div>
       )}
 
-      {/* 우측 상단: 상세보기 버튼 */}
+      {/* 우측 상단: 상세 접기 버튼 */}
       <div className="absolute right-[16px] top-[26px]">
         <Button onClick={handleDetailClick} variant="outline" size="md">
-          상세보기
+          상세 접기
           <ChevronDetailUpIcon size={14} className="ml-1" fill="#B1B8C0" />
         </Button>
       </div>

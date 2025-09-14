@@ -1,31 +1,19 @@
 import { Button } from '../button'
 import { Image } from '../image'
 import { HeartIcon, HeartFilledIcon, ChevronDetailDownIcon } from '../icons'
-
-interface Book {
-  id: string
-  title: string
-  author: string
-  publisher: string
-  isbn: string
-  thumbnail?: string
-  price?: number
-  salePrice?: number
-  url?: string
-  publishedDate?: string
-}
+import type { Book } from '@/types/book.ts'
 
 interface BookListItemProps {
   book: Book
   onToggleLike?: (bookId: string) => void
-  onViewDetail?: (book: Book) => void
+  onToggleExpand?: (bookId: string) => void
   isLiked?: boolean
 }
 
 export const BookListItem = ({
   book,
   onToggleLike,
-  onViewDetail,
+  onToggleExpand,
   isLiked = false,
 }: BookListItemProps) => {
   const handleLikeClick = () => {
@@ -33,7 +21,7 @@ export const BookListItem = ({
   }
 
   const handleDetailClick = () => {
-    onViewDetail?.(book)
+    onToggleExpand?.(book.id)
   }
 
   const handlePurchaseClick = () => {

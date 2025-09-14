@@ -7,11 +7,13 @@ import type { SelectOption } from '../select'
 interface SearchBoxProps {
   value?: string
   onChange?: (value: string) => void
-  onSearch?: () => void
+  onSearch?: (keyword: string) => void
   onDetailSearch?: (category: string, keyword: string) => void
+  onFocus?: () => void
   placeholder?: string
   title?: string
   searchCategories?: SelectOption[]
+  isHistoryVisible?: boolean
 }
 
 export const SearchBox = ({
@@ -19,21 +21,25 @@ export const SearchBox = ({
   onChange,
   onSearch,
   onDetailSearch,
+  onFocus,
   placeholder = '검색어를 입력하세요',
   title,
   searchCategories,
+  isHistoryVisible = false,
 }: SearchBoxProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      onSearch?.()
+      onSearch?.(value)
     }
   }
 
   const handleDetailSearch = (category: string, keyword: string) => {
     onDetailSearch?.(category, keyword)
   }
+
+  const borderRadius = isHistoryVisible ? 'rounded-t-[25px]' : 'rounded-[25px]'
 
   return (
     <div className="relative w-[568px] h-[103px]">
@@ -45,7 +51,9 @@ export const SearchBox = ({
       )}
 
       {/* 검색 입력창 */}
-      <div className="absolute left-0 right-[88px] top-[52px] bottom-0 flex items-center bg-[#F2F4F6] rounded-[100px] px-[10px] gap-[11px]">
+      <div
+        className={`absolute left-0 right-[88px] top-[52px] bottom-0 flex items-center bg-[#F2F4F6] ${borderRadius} px-[10px] gap-[11px]`}
+      >
         <div className="w-[30px] h-[30px] flex items-center justify-center">
           <SearchIcon size={24} />
         </div>
@@ -54,6 +62,7 @@ export const SearchBox = ({
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={onFocus}
           placeholder={placeholder}
           className="flex-1 text-[16px] font-medium leading-[16px] text-[#222222] placeholder-[#8D94A0] bg-transparent outline-none"
         />

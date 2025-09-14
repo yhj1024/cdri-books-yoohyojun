@@ -20,6 +20,8 @@ const mockBook = {
   price: 20000,
   salePrice: 18000,
   url: 'https://example.com',
+  publishedDate: '2024-01-01',
+  status: '정상판매',
 }
 
 describe('BookListItem 컴포넌트', () => {
@@ -51,15 +53,15 @@ describe('BookListItem 컴포넌트', () => {
   })
 
   it('상세보기 버튼 클릭 시 콜백이 호출된다', () => {
-    const handleViewDetail = vi.fn()
-    render(<BookListItem book={mockBook} onViewDetail={handleViewDetail} />)
+    const handleToggleExpand = vi.fn()
+    render(<BookListItem book={mockBook} onToggleExpand={handleToggleExpand} />)
 
     const detailButtons = screen.getAllByRole('button')
     const detailButton = detailButtons.find((btn) => btn.textContent?.includes('상세보기'))
 
     if (detailButton) {
       fireEvent.click(detailButton)
-      expect(handleViewDetail).toHaveBeenCalledWith(mockBook)
+      expect(handleToggleExpand).toHaveBeenCalledWith('1')
     }
   })
 
@@ -77,7 +79,7 @@ describe('BookListItem 컴포넌트', () => {
   })
 
   it('URL이 없으면 구매하기 버튼이 비활성화된다', () => {
-    const bookWithoutUrl = { ...mockBook, url: undefined }
+    const bookWithoutUrl = { ...mockBook, url: '' }
 
     render(<BookListItem book={bookWithoutUrl} />)
 
