@@ -10,13 +10,8 @@
 - 📖 **도서 검색**: 카카오 도서 검색 API를 통한 실시간 도서 검색
 - 💾 **검색 히스토리**: 최근 검색어 자동 저장 및 빠른 재검색
 - ❤️ **찜하기**: 관심 도서를 찜 목록에 저장 (최신 찜한 책이 상단 표시)
-- 📱 **반응형 디자인**: 모바일, 태블릿, 데스크톱 환경 지원
 
 ## 🚀 실행 방법 및 환경 설정
-
-### 사전 요구사항
-- Node.js 18.0.0 이상
-- pnpm 8.0.0 이상
 
 ### 설치 및 실행
 
@@ -28,36 +23,36 @@ cd cdri-books-yoohyojun
 
 2. **의존성 설치**
 ```bash
-pnpm install
+pnpm install       # or yarn install, npm install
 ```
 
 3. **환경 변수 설정**
 
-프로젝트 루트에 `.env` 파일을 생성하고 다음 내용을 추가합니다:
-```env
-VITE_KAKAO_REST_API_KEY=your_kakao_rest_api_key
-VITE_KAKAO_API_BASE_URL=https://dapi.kakao.com/v3/search/book
-```
+담당자 메일로 전달받은 `.env` 파일을 프로젝트 루트 디렉토리에 복사합니다.
 
-> ⚠️ **주의**: Kakao Developers에서 애플리케이션을 등록하고 REST API 키를 발급받아야 합니다.
+> ⚠️ **주의**: `.env` 파일은 별도로 담당자 메일로 전달됩니다.
 
 4. **개발 서버 실행**
 ```bash
-pnpm dev
+pnpm dev           # or yarn dev, npm run dev
 ```
 
 5. **프로덕션 빌드**
 ```bash
-pnpm build
-pnpm preview  # 빌드된 결과물 미리보기
+pnpm build         # or yarn build, npm run build
+pnpm preview       # or yarn preview, npm run preview (빌드된 결과물 미리보기)
 ```
 
 ### 기타 명령어
 ```bash
-pnpm test          # 테스트 실행
-pnpm test:ui       # Vitest UI 실행
-pnpm lint          # ESLint 실행
-pnpm storybook     # Storybook 실행
+# 테스트 실행
+pnpm test          # or yarn test, npm run test
+# Vitest UI 실행
+pnpm test:ui       # or yarn test:ui, npm run test:ui
+# ESLint 실행
+pnpm lint          # or yarn lint, npm run lint
+# Storybook 실행
+pnpm storybook     # or yarn storybook, npm run storybook
 ```
 
 ## 📁 폴더 구조 및 주요 코드 설명
@@ -128,7 +123,6 @@ src/
 - **선택 이유**: 빠른 UI 개발과 일관된 디자인 시스템
 - **장점**:
   - 유틸리티 우선 접근법
-  - 반응형 디자인 구현 용이
   - 번들 크기 최적화 (사용하지 않는 스타일 제거)
 
 #### **Storybook**
