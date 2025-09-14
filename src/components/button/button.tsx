@@ -6,6 +6,10 @@ export interface ButtonProps {
   size?: 'sm' | 'md' | 'lg' | 'full' | 'popover'
   disabled?: boolean
   onClick?: () => void
+  'aria-label'?: string
+  'aria-expanded'?: boolean
+  'aria-haspopup'?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid'
+  'aria-pressed'?: boolean
 }
 
 export const Button = ({
@@ -14,6 +18,10 @@ export const Button = ({
   size = 'md',
   disabled = false,
   onClick,
+  'aria-label': ariaLabel,
+  'aria-expanded': ariaExpanded,
+  'aria-haspopup': ariaHaspopup,
+  'aria-pressed': ariaPressed,
 }: ButtonProps) => {
   const baseClasses =
     'inline-flex items-center justify-center font-medium disabled:opacity-50 disabled:cursor-not-allowed'
@@ -36,7 +44,15 @@ export const Button = ({
   const classes = `${baseClasses} ${variants[variant]} ${sizes[size]}`.trim()
 
   return (
-    <button className={classes} disabled={disabled} onClick={onClick}>
+    <button
+      className={classes}
+      disabled={disabled}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      aria-expanded={ariaExpanded}
+      aria-haspopup={ariaHaspopup}
+      aria-pressed={ariaPressed}
+    >
       {children}
     </button>
   )

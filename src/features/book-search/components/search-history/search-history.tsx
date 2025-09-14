@@ -29,12 +29,19 @@ export const SearchHistory = ({
     <ul
       className="absolute left-0 top-full w-[480px] bg-[#F2F4F6] rounded-b-[24px] z-10 py-3 pl-[51px] pr-[20px] list-none"
       onMouseDown={(e) => e.preventDefault()} // 포커스 유지
+      role="listbox"
+      aria-label="최근 검색 기록"
     >
       {searchHistory.slice(0, 8).map((item) => (
-        <li key={item.timestamp} className="w-full flex items-center justify-between py-2">
+        <li
+          key={item.timestamp}
+          className="w-full flex items-center justify-between py-2"
+          role="option"
+        >
           <button
             className="flex-1 text-left"
             onClick={() => onSelectHistory(item.query, item.target)}
+            aria-label={`검색 기록: ${item.query}`}
           >
             <span className="text-[16px] font-medium leading-[16px] text-[#8D94A0]">
               {item.query}
@@ -46,6 +53,7 @@ export const SearchHistory = ({
               onRemoveHistory(item.query, item.target)
             }}
             className="p-1 text-[#222222]"
+            aria-label={`${item.query} 검색 기록 삭제`}
           >
             <XSmallIcon size={16} />
           </button>

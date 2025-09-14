@@ -46,7 +46,8 @@ export const BookListItem = ({
         <button
           onClick={handleLikeClick}
           className="absolute left-[32px] top-0 w-4 h-4 flex items-center justify-center"
-          aria-label={isLiked ? '찜 해제' : '찜하기'}
+          aria-label={`${book.title} ${isLiked ? '찜 해제' : '찜하기'}`}
+          aria-pressed={isLiked}
         >
           {isLiked ? <HeartFilledIcon size={12} /> : <HeartIcon size={12} />}
         </button>
@@ -71,14 +72,26 @@ export const BookListItem = ({
 
         {/* 구매하기 버튼 (right: 139px) */}
         <div className="mr-[8px]">
-          <Button onClick={handlePurchaseClick} disabled={!book.url} variant="primary" size="md">
+          <Button
+            onClick={handlePurchaseClick}
+            disabled={!book.url}
+            variant="primary"
+            size="md"
+            aria-label={`${book.title} 구매하기`}
+          >
             구매하기
           </Button>
         </div>
 
         {/* 상세보기 버튼 (right: 16px) */}
         <div className="mr-[16px]">
-          <Button onClick={handleDetailClick} variant="outline" size="md">
+          <Button
+            onClick={handleDetailClick}
+            variant="outline"
+            size="md"
+            aria-label={`${book.title} 상세보기`}
+            aria-expanded={false}
+          >
             상세보기
             <ChevronDetailDownIcon size={14} className="ml-1" fill="#B1B8C0" />
           </Button>

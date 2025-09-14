@@ -65,12 +65,23 @@ export const SearchBox = ({
           onFocus={onFocus}
           placeholder={placeholder}
           className="flex-1 text-[16px] font-medium leading-[16px] text-[#222222] placeholder-[#8D94A0] bg-transparent outline-none"
+          aria-label="도서 검색어 입력"
+          aria-autocomplete="list"
+          aria-expanded={isHistoryVisible}
+          aria-haspopup="listbox"
         />
       </div>
 
       {/* 상세검색 버튼 */}
       <div className="absolute right-0 top-[61px]">
-        <Button variant="outline-border" size="sm" onClick={() => setIsPopoverOpen(true)}>
+        <Button
+          variant="outline-border"
+          size="sm"
+          onClick={() => setIsPopoverOpen(true)}
+          aria-label="상세 검색 열기"
+          aria-expanded={isPopoverOpen}
+          aria-haspopup="dialog"
+        >
           상세검색
         </Button>
 
