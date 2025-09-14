@@ -22,10 +22,10 @@ export const useFavoriteStore = create<FavoriteStore>()(
       favoriteBooks: [],
       likedBookIds: new Set<string>(),
 
-      // 찜하기 추가
+      // 찜하기 추가 (최신 찜한 책이 맨 앞에)
       addFavorite: (book) =>
         set((state) => {
-          const newFavoriteBooks = [...state.favoriteBooks, book]
+          const newFavoriteBooks = [book, ...state.favoriteBooks]
           return {
             favoriteBooks: newFavoriteBooks,
             likedBookIds: new Set(newFavoriteBooks.map((b) => b.id)),
