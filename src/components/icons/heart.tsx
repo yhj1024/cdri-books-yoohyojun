@@ -1,6 +1,6 @@
 import type { IconProps } from './types'
 
-export const HeartIcon = ({ size = 24, className = '', fill = 'none' }: IconProps) => (
+export const HeartIcon = ({ size = 24, className = 'text-white', fill = 'none' }: IconProps) => (
   <svg
     width={size}
     height={size}
@@ -21,7 +21,7 @@ export const HeartIcon = ({ size = 24, className = '', fill = 'none' }: IconProp
 
 export const HeartFilledIcon = ({
   size = 24,
-  className = '',
+  className = 'text-red-500',
   fill = 'currentColor',
 }: IconProps) => (
   <svg

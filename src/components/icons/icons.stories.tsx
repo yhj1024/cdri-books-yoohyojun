@@ -18,7 +18,7 @@ export const Heart: StoryObj = {
   render: () => (
     <div className="flex items-center gap-4">
       <HeartIcon size={24} />
-      <HeartFilledIcon size={24} className="text-red-500" />
+      <HeartFilledIcon size={24} />
     </div>
   ),
 }
