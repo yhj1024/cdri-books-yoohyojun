@@ -1,8 +1,9 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { SearchBox } from './search-box'
 import { SearchCountText } from '@/components/search-count-text'
 import { SearchHistory } from './search-history'
 import { useSearchStore, type SearchTarget } from '@/stores/search-store.ts'
+import { useClickOutside } from '@/hooks'
 import type { SelectOption } from '@/components/select'
 
 interface BookSearchProps {
@@ -20,6 +21,7 @@ const searchCategories: SelectOption[] = [
 export const BookSearch = ({ onSearch, totalCount = 0 }: BookSearchProps) => {
   const [inputValue, setInputValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
+  const searchContainerRef = useRef<HTMLDivElement>(null)
 
   const { searchTarget, searchHistory, setSearchTarget, addSearchHistory, removeSearchHistory } =
     useSearchStore()
@@ -85,9 +87,12 @@ export const BookSearch = ({ onSearch, totalCount = 0 }: BookSearchProps) => {
     setIsFocused(true)
   }, [])
 
+  // 외부 클릭 시 검색 기록 닫기
+  useClickOutside(searchContainerRef, () => setIsFocused(false), isFocused)
+
   return (
     <div className="w-full">
-      <div className="relative">
+      <div className="relative" ref={searchContainerRef}>
         <SearchBox
           value={inputValue}
           title={'도서 검색'}
